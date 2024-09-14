@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 def index(request):
-    return HttpResponse('Hello!!!!')
+    return render(request, 'files/index.html')
 
 data = [
     {'name': 'name1.jpg'},
