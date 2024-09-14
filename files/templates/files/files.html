@@ -3,9 +3,13 @@
 {% block title %}Files Title{% endblock title %}
 
 {% block body %}
+{% if data %}
 <ul>
     {% for d in data%}
     <li>{{ d.name }}</li>
     {% endfor%}
 </ul>
+{% else %}
+<p>No data</p>
+{% endif %}
 {% endblock body %}
