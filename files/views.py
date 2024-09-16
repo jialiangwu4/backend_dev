@@ -5,10 +5,10 @@ def index(request):
     return render(request, 'files/index.html')
 
 data = [
-    {'name': 'name1.jpg'},
-    {'name': 'name2.jpg'},
-    {'name': 'name3.jpg'},
-    {'name': 'name4.jpg'},
+    {'id': 1, 'name': 'name1.jpg'},
+    {'id': 2, 'name': 'name2.jpg'},
+    {'id': 3, 'name': 'name3.jpg'},
+    {'id': 4, 'name': 'name4.jpg'},
 ]
 
 
@@ -17,11 +17,10 @@ def files(request):
 
 
 def file(request, file_id):
-    try:
-        res = data[file_id]
-        return render(request,
+    for d in data:
+        if d.get('id')==file_id:
+            return render(request,
                   'files/file.html',
-                  {'file': res}
+                  {'file': d}
                   )
-    except Exception:
-        raise Http404('No such file')
+    raise Http404('No such file')

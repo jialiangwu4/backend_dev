@@ -6,7 +6,7 @@
 {% if data %}
 <ul>
     {% for d in data%}
-    <li>{{ d.name }}</li>
+    <li><a href="{% url 'file' d.id %}">{{ d.name }}</a></li>
     {% endfor%}
 </ul>
 {% else %}
