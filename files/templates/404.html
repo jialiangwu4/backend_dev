@@ -1,0 +1,8 @@
+{% extends "files/site.html" %}
+
+{% block title %} Not Found! {% endblock title %}
+
+{% block body %}
+    <h1>Page Not Found. Try Again!</h1>
+    <a href="{% url "files" %}">back to all files</a>
+{% endblock body %}
