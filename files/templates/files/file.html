@@ -3,6 +3,7 @@
 {% block title %}File Detail{% endblock title %}
 
 {% block body %}
-    <p>{{ file.name }}</p>
+    <p>File Name: {{ file.name }}</p>
+    <p>File Type: {{ file.file_type }}</p>
     <a href="{% url "files" %}">back to all files.</a>
 {% endblock body %}
