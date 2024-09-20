@@ -40,3 +40,13 @@ def edit(request, file_id):
     file.save()
     
     return redirect('files')
+
+def delete(request, file_id):
+    try: 
+        file = File.objects.get(pk=file_id)
+    except File.DoesNotExist:
+        raise Http404('File not found')
+    
+    file.delete()
+    return redirect('files')   
+    
