@@ -6,11 +6,12 @@
 {% if data %}
 <ul>
     {% for d in data%}
-    <li><a href="{% url 'file' d.id %}">{{ d.name }}</a></li>
+    <li><a href="{% url "file" d.id %}">{{ d.name }}</a></li>
     {% endfor%}
 </ul>
 {% else %}
 <p>No data</p>
 {% endif %}
-<a href="{% url "index" %}">Back to Index</a>
+<p><a href="{% url "upload" %}">Upload New File</a></p>
+<p><a href="{% url "index" %}">Back to Index</a></p>
 {% endblock body %}
