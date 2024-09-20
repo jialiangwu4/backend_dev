@@ -7,12 +7,12 @@
     <p>File Type: {{ file.file_type }}</p>
     <p>Upload timestamp: {{ file.upload_timestamp }}</p>
 
-    <form action="">
+    <form action="{% url "edit" file.id %}" method="POST">
+        {% csrf_token %}
         <label for="name">Update File Name: </label><input type="text" name="name" id="name" placeholder="example.txt">
-        <label for="type">Update File Type: </label><input type="text" name="type" id="type" placeholder=".txt"> 
+        <label for="type">Update File Type: </label><input type="text" name="type" id="type" placeholder=".txt">
         <p><button>this is a button</button></p>
     </form>
-
 
     <a href="{% url "files" %}">back to all files.</a>
 {% endblock body %}
