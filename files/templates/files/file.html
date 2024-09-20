@@ -5,6 +5,14 @@
 {% block body %}
     <p>File Name: {{ file.name }}</p>
     <p>File Type: {{ file.file_type }}</p>
-    <p>Created timestamp: {{ file.upload_timestamp }}</p>
+    <p>Upload timestamp: {{ file.upload_timestamp }}</p>
+
+    <form action="">
+        <label for="name">Update File Name: </label><input type="text" name="name" id="name" placeholder="example.txt">
+        <label for="type">Update File Type: </label><input type="text" name="type" id="type" placeholder=".txt"> 
+        <p><button>this is a button</button></p>
+    </form>
+
+
     <a href="{% url "files" %}">back to all files.</a>
 {% endblock body %}
