@@ -57,7 +57,6 @@ def create(request):
     name = request.POST.get('name')
     file_type = request.POST.get('type')
     
-    print(name, file_type)
     if name and file_type:
         file = File(name=name, file_type=file_type)
         file.save()
