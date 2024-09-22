@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from files import views
+from files import views, settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,5 +27,8 @@ urlpatterns = [
     path('files/edit/<int:file_id>/', views.edit, name='edit'),
     path('files/delete/<int:file_id>/', views.delete, name='delete'),
     path('files/upload/', views.upload, name='upload'),
-    path('files/upload/create/', views.create, name='create')
+    path('files/upload/create/', views.create, name='create'),
 ]
+
+# add the media path to the static files
+urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
