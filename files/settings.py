@@ -26,7 +26,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 SECRET_KEY = 'django-insecure-@z6wj!5hrz7gys%u^k8()0ijw5!g8#)9jl$5j(55rdvr#a^3%$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # add endpoints here
 ALLOWED_HOSTS = ['127.0.0.1', 'FilesHosting-env-1.eba-n5rjbfw3.us-east-2.elasticbeanstalk.com']
@@ -78,10 +78,29 @@ WSGI_APPLICATION = 'files.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# local db setup 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# postgres db setup 
+DB_HOSTNAME = os.environ.get('RDS_HOSTNAME')
+# DB_PORT = os.environ.get('RDS_PORT')
+DB_NAME = os.environ.get('RDS_DB_NAME')
+DB_USERNAME = os.environ.get('RDS_USERNAME')
+DB_PASSWORD = os.environ.get('RDS_PASSWORD')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DB_NAME,                      
+        'USER': DB_USERNAME,
+        'PASSWORD': DB_PASSWORD,
+        'HOST': DB_HOSTNAME,
+        # 'PORT': DB_PORT,
     }
 }
 
