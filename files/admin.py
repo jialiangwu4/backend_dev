@@ -3,7 +3,7 @@ from .models import File
 
 
 class FileAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'file_type', 'upload_timestamp',)
+    list_display = ('id', 'name', 'upload_timestamp',)
     readonly_fields = ('id', 'upload_timestamp')
 
 
