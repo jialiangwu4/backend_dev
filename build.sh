@@ -14,3 +14,5 @@ python3 manage.py collectstatic --noinput
 
 # generate a zip file named deployment.zip, excluding .git and .venv
 zip -r deployment.zip . -x "*.git*" "*.venv*"
+
+eb deploy
