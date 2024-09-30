@@ -31,4 +31,4 @@ urlpatterns = [
 ]
 
 # add the media path to the static files
-urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
+# urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))

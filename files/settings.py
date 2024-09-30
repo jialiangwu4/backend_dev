@@ -35,7 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@z6wj!5hrz7gys%u^k8()0ijw5!g8#)9jl$5j(55rdvr#a^3%$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # add endpoints here
 ALLOWED_HOSTS = ['127.0.0.1', 'FilesHosting-env-1.eba-n5rjbfw3.us-east-2.elasticbeanstalk.com']
