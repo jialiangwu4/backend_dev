@@ -185,7 +185,7 @@ STORAGES = {
         }
     },
 }
-
+ 
 # Set up path for media and static folders - s3 
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 # MEDIA_ROOT = AWS_S3_CUSTOM_DOMAIN
