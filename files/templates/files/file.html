@@ -6,7 +6,7 @@
     <p>File Name: {{ file.name }}</p>
     <p>Upload timestamp: {{ file.upload_timestamp }}</p>
     <p>Click here to view <a href={{ file.file.url }} target="_blank">file</a>.</p>
-    <p>Click here to <a href={{ file.file.url }} download >download</a>.</p>
+    <p>Click here to <a href={{ file.file.url }} download="{{ file.name }}" >download</a>.</p>
 
     <form action="{% url "edit" file.id %}" method="POST">
         {% csrf_token %}
