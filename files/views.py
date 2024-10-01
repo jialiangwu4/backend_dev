@@ -55,7 +55,7 @@ def create(request):
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
-            # settings.AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', 'ContentDisposition': f'attachment; filename="{request.FILES['file'].name}"'}
+            # this setting enable users to download contents cross site, i.e., not from the same server. (files are hosted in S3, server is on EC2)
             settings.AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', 'ContentDisposition': 'attachment; filename="' + request.FILES['file'].name + '"'}
             form.save()
     
