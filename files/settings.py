@@ -45,6 +45,7 @@ ALLOWED_HOSTS = ['127.0.0.1', 'FilesHosting-env-1.eba-n5rjbfw3.us-east-2.elastic
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
     'storages',
     'files',
     'django.contrib.admin',
