@@ -28,7 +28,9 @@ urlpatterns = [
     path('files/delete/<int:file_id>/', views.delete, name='delete'),
     path('files/upload/', views.upload, name='upload'),
     path('files/upload/create/', views.create, name='create'),
-    path('download/<int:file_id>', views.download_file, name='download_file')
+    path('download/<int:file_id>/', views.download_file, name='download_file'),
+    # rest api endpoints 
+    path('api/files/', views.api_files, name='api_files'),
 ]
 
 # add the media path to the static files

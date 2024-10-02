@@ -1,5 +1,6 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
+from files.serializers import FileSerializer
 from files.forms import UploadForm
 from files.models import File
 import os
@@ -109,3 +110,12 @@ def download_file(request, file_id):
     
     
     return file_response
+
+
+
+# api endpoinds
+
+def api_files(request):
+    files = File.objects.all()
+    serializer = FileSerializer(files, many=True)
+    return JsonResponse({'files':serializer.data})
