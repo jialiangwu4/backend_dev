@@ -2,7 +2,9 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from files.forms import UploadForm
 from files.models import File
-from django.conf import settings
+import os
+from urllib.parse import urlparse
+import requests
 
 def index(request):
     return render(request, 'files/index.html')
@@ -52,13 +54,58 @@ def upload(request):
     return render(request, 'files/upload.html', {'form': UploadForm})
 
 def create(request):
+    form = UploadForm()
+    
     if request.method == 'POST':
         form = UploadForm(request.POST, request.FILES)
         if form.is_valid():
-            # this setting enable users to download contents cross site, i.e., not from the same server. (files are hosted in S3, server is on EC2)
-            settings.AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400', 'ContentDisposition': 'attachment; filename="' + request.FILES['file'].name + '"'}
             form.save()
+            
+            return redirect('files')
+        
+    return render(request, 'upload.html', {'form': form})
     
-    return redirect('files')    
+    
+def download_file(request, file_id):
+    def _get_ext(url):
+        path = urlparse(url).path
+        ext = os.path.splitext(path)[1]
+        return ext
+    
+    try: 
+        file = File.objects.get(pk=file_id)
+    except File.DoesNotExist:
+        raise Http404('File not found')
+    
+    s3_url = file.file.url
+    
+    # use the name field as the file name for download
+    file_name = file.name + _get_ext(s3_url)
+    
+    # use StreamingHttpResponse for larger files.
+    
+    # response = requests.get(s3_url, stream=True)
+    
+    # file_response = StreamingHttpResponse(
+    #     response.iter_content(chunk_size=8192),  # Stream the file in chunks
+    #     content_type=response.headers.get("Content-Type")
+    # )
+    # # Set the Content-Disposition header to force download, use the file name that's set by the user 
+    # file_response['Content-Disposition'] = f'attachment; filename="{file_name}"'
     
     
+    # when files size are small, typically less than 10MB. use HttpResponse
+    response = requests.get(s3_url)
+
+    if response.status_code == 200:
+        # Use HttpResponse to return the file content
+        file_response = HttpResponse(
+            response.content,  # Entire file content
+            content_type=response.headers.get("Content-Type")  # Content type
+        )
+        # Set the Content-Disposition header to force download
+        file_response['Content-Disposition'] = f'attachment; filename="{file_name}"'
+        return file_response
+    
+    
+    return file_response

@@ -35,6 +35,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-@z6wj!5hrz7gys%u^k8()0ijw5!g8#)9jl$5j(55rdvr#a^3%$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+# need to set debug to false if trying to run locally, because static_root is not set up
 DEBUG = False
 
 # add endpoints here
@@ -164,6 +165,7 @@ AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
 AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 AWS_S3_FILE_OVERWRITE = False
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 
 STORAGES = {
     # Media file (image) management   
