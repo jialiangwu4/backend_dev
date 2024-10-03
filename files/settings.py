@@ -36,7 +36,7 @@ SECRET_KEY = 'django-insecure-@z6wj!5hrz7gys%u^k8()0ijw5!g8#)9jl$5j(55rdvr#a^3%$
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # need to set debug to false if trying to run locally, because static_root is not set up
-DEBUG = False
+DEBUG = True
 
 # add endpoints here
 ALLOWED_HOSTS = ['127.0.0.1', 'FilesHosting-env-1.eba-n5rjbfw3.us-east-2.elasticbeanstalk.com']
@@ -189,7 +189,7 @@ STORAGES = {
 }
  
 # Set up path for media and static folders - s3 
-# MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 # MEDIA_ROOT = AWS_S3_CUSTOM_DOMAIN
-# STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 # STATIC_ROOT = AWS_S3_CUSTOM_DOMAIN

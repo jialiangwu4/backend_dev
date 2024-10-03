@@ -6,6 +6,9 @@ from files.models import File
 import os
 from urllib.parse import urlparse
 import requests
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework import status
 
 def index(request):
     return render(request, 'files/index.html')
@@ -115,7 +118,18 @@ def download_file(request, file_id):
 
 # api endpoinds
 
-def api_files(request):
+@api_view(['GET'])
+def files_api(request, format=None): # the format keyword is to support url suffix 
     files = File.objects.all()
     serializer = FileSerializer(files, many=True)
-    return JsonResponse({'files':serializer.data})
+    return Response({'files':serializer.data}, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def file_api(request, file_id, format=None):
+    try:
+        file = File.objects.get(pk=file_id)
+    except File.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    serializer = FileSerializer(file)
+    return Response({'file':serializer.data}, status=status.HTTP_200_OK)

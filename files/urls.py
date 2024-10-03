@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from files import views, settings
 from django.conf.urls.static import static
+from rest_framework.urlpatterns import format_suffix_patterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,8 +31,12 @@ urlpatterns = [
     path('files/upload/create/', views.create, name='create'),
     path('download/<int:file_id>/', views.download_file, name='download_file'),
     # rest api endpoints 
-    path('api/files/', views.api_files, name='api_files'),
+    path('api/files/', views.files_api, name='files_api'),
+    path('api/files/<int:file_id>/', views.file_api, name='file_api'),
 ]
 
-# add the media path to the static files
+# add the media path to the static files - local
 # urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
+
+# support .json url suffix
+urlpatterns = format_suffix_patterns(urlpatterns)
