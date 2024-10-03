@@ -188,8 +188,14 @@ STORAGES = {
     },
 }
  
-# Set up path for media and static folders - s3 
+# Set up path for media and static folders. this is for local dev usage when debug is turned on... using s3 here because we set it up to use s3 storage instead of local storage 
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
 # MEDIA_ROOT = AWS_S3_CUSTOM_DOMAIN
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 # STATIC_ROOT = AWS_S3_CUSTOM_DOMAIN
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

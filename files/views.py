@@ -7,8 +7,9 @@ import os
 from urllib.parse import urlparse
 import requests
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 def index(request):
     return render(request, 'files/index.html')
@@ -119,6 +120,7 @@ def download_file(request, file_id):
 # api endpoinds
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def files_api(request, format=None): # the format keyword is to support url suffix 
     if request.method == 'GET':
         files = File.objects.all()
@@ -126,6 +128,7 @@ def files_api(request, format=None): # the format keyword is to support url suff
         return Response({'files':serializer.data})
 
 @api_view(['GET', 'PATCH', 'DELETE'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def file_api(request, file_id, format=None):
     # request handling for single file
     try:
@@ -150,6 +153,7 @@ def file_api(request, file_id, format=None):
     
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def upload_api(request, format=None):
     
     if request.method == 'GET':
