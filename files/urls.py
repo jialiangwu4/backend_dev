@@ -33,6 +33,7 @@ urlpatterns = [
     # rest api endpoints 
     path('api/files/', views.files_api, name='files_api'),
     path('api/files/<int:file_id>/', views.file_api, name='file_api'),
+    path('api/files/upload/', views.upload_api, name='upload_api'),
 ]
 
 # add the media path to the static files - local

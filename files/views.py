@@ -120,9 +120,10 @@ def download_file(request, file_id):
 
 @api_view(['GET'])
 def files_api(request, format=None): # the format keyword is to support url suffix 
-    files = File.objects.all()
-    serializer = FileSerializer(files, many=True)
-    return Response({'files':serializer.data})
+    if request.method == 'GET':
+        files = File.objects.all()
+        serializer = FileSerializer(files, many=True)
+        return Response({'files':serializer.data})
 
 @api_view(['GET', 'PATCH', 'DELETE'])
 def file_api(request, file_id, format=None):
@@ -146,3 +147,19 @@ def file_api(request, file_id, format=None):
     elif request.method == 'DELETE':
         file.delete()
         return Response(status=status.HTTP_200_OK)
+    
+
+@api_view(['GET', 'POST'])
+def upload_api(request, format=None):
+    
+    if request.method == 'GET':
+        files = File.objects.all()
+        serializer = FileSerializer(files, many=True)
+        return Response({'files':serializer.data})
+    elif request.method == 'POST':
+        serializer = FileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
