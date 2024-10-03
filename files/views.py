@@ -122,14 +122,27 @@ def download_file(request, file_id):
 def files_api(request, format=None): # the format keyword is to support url suffix 
     files = File.objects.all()
     serializer = FileSerializer(files, many=True)
-    return Response({'files':serializer.data}, status=status.HTTP_200_OK)
+    return Response({'files':serializer.data})
 
-@api_view(['GET'])
+@api_view(['GET', 'PATCH', 'DELETE'])
 def file_api(request, file_id, format=None):
+    # request handling for single file
     try:
         file = File.objects.get(pk=file_id)
     except File.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    serializer = FileSerializer(file)
-    return Response({'file':serializer.data}, status=status.HTTP_200_OK)
+    if request.method == 'GET':
+        serializer = FileSerializer(file)
+        return Response(serializer.data)
+    
+    elif request.method == 'PATCH': # use patch to update partial data
+        serializer = FileSerializer(file, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    elif request.method == 'DELETE':
+        file.delete()
+        return Response(status=status.HTTP_200_OK)
