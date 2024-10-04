@@ -152,7 +152,7 @@ def file_api(request, file_id, format=None):
         return Response(status=status.HTTP_200_OK)
     
 
-@api_view(['GET', 'POST'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def upload_api(request, format=None):
     
