@@ -123,7 +123,12 @@ def download_file(request, file_id):
 @permission_classes([IsAuthenticatedOrReadOnly])
 def files_api(request, format=None): # the format keyword is to support url suffix 
     if request.method == 'GET':
-        files = File.objects.all()
+        try:
+            files = request.user.file_set.all() # get files specific to that user
+            # files = File.objects.all()
+        except AttributeError as e:
+            return Response('Please Log in', status=status.HTTP_401_UNAUTHORIZED)  
+            
         serializer = FileSerializer(files, many=True)
         return Response({'files':serializer.data})
 
@@ -132,9 +137,12 @@ def files_api(request, format=None): # the format keyword is to support url suff
 def file_api(request, file_id, format=None):
     # request handling for single file
     try:
-        file = File.objects.get(pk=file_id)
+        file = request.user.file_set.get(pk=file_id) # get files specific to that user
+        # file = File.objects.get(pk=file_id)
     except File.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response('File does not exist or you do not have permission', status=status.HTTP_404_NOT_FOUND)
+    except AttributeError as e:
+            return Response('Please Log in', status=status.HTTP_401_UNAUTHORIZED)  
     
     if request.method == 'GET':
         serializer = FileSerializer(file)
