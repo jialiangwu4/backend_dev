@@ -174,16 +174,19 @@ AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
 STORAGES = {
     # Media file (image) management   
     "default": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage", # use S3Boto3Storage for presigned url
         'OPTIONS': {
             'bucket_name': AWS_STORAGE_BUCKET_NAME,
             'location': 'media',
+            'custom_domain': False, # required for presigned url
+            'querystring_expire':'604800',
+            'region_name': 'us-east-2', # required for presigned url
         }
     },
     
     # CSS and JS file management
     "staticfiles": {
-        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage", # use S3StaticStorage for static files
         'OPTIONS': {
             'bucket_name': AWS_STORAGE_BUCKET_NAME,
             'location': 'static',
