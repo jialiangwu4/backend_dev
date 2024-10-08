@@ -37,6 +37,7 @@ urlpatterns = [
     path('api/files/', views.files_api, name='files_api'),
     path('api/files/<int:file_id>/', views.file_api, name='file_api'),
     path('api/files/upload/', views.upload_api, name='upload_api'),
+    path('api/register/', views.register_api, name='register_api'),
 ]
 
 # add the media path to the static files - local

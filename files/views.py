@@ -1,6 +1,6 @@
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
-from files.serializers import FileSerializer
+from files.serializers import FileSerializer, UserSerializer
 from files.forms import UploadForm
 from files.models import File
 import os
@@ -163,13 +163,19 @@ def file_api(request, file_id, format=None):
 @api_view(['POST'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def upload_api(request, format=None):
-    
-    if request.method == 'GET':
-        files = File.objects.all()
-        serializer = FileSerializer(files, many=True)
-        return Response({'files':serializer.data})
-    elif request.method == 'POST':
-        serializer = FileSerializer(data=request.data)
+    if request.method == 'POST':
+        serializer = FileSerializer(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])        
+def register_api(request):
+    if request.method == 'POST':
+        serializer = UserSerializer(data=request.data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
