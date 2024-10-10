@@ -15,12 +15,14 @@ def index(request):
     return render(request, 'files/index.html')
 
 def files(request):
-    file = File.objects.all()
-    return render(request, 'files/files.html', {'data': file})
+    # files = File.objects.all()
+    files = request.user.file_set.all()
+    return render(request, 'files/files.html', {'data': files})
 
 def file(request, file_id):
     try: 
-        file = File.objects.get(pk=file_id)
+        # file = File.objects.get(pk=file_id)
+        file = request.user.file_set.get(pk=file_id)
     except File.DoesNotExist:
         raise Http404('File not found')
         
