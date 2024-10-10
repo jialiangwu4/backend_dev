@@ -8,6 +8,7 @@
         {% csrf_token %}
         {{ form }}
         <button type="submit">Log In</button>
+        <input type="hidden" name="next" value="{% url "files" %}" />
     </form>
 {% endblock body %}
 

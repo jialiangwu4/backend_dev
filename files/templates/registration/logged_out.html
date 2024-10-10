@@ -1,0 +1,12 @@
+{% extends "../files/site.html" %}
+
+{% block title %}Log out{% endblock title %}
+
+{% block body %}
+    <h1>Log In</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+{% endblock body %}
+

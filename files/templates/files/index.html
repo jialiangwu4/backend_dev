@@ -3,6 +3,8 @@
 {% block title %}Index Title{% endblock title %}
 {% block body %}
 <h1>This is Index</h1>
-<a href="{% url "files" %}">View all files</a>
+{% comment %} <p><a href="{% url "files" %}">View all files</a></p> {% endcomment %}
+<p><a href="{% url "login" %}">Click here to log in</a></p>
+<p><a href="{% url "logout" %}">Click here to log out</a></p>
 {% endblock body %}
 

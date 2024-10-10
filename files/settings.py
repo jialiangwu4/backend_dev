@@ -252,3 +252,4 @@ SIMPLE_JWT = {
 
 # django built-in authentication setup
 LOGIN_REDIRECT_URL = "/" 
+LOGOUT_REDIRECT_URL = "/"
