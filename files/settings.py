@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'storages',
     'files',
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', # django built-in authentication
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -248,3 +248,7 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+
+# django built-in authentication setup
+LOGIN_REDIRECT_URL = "/" 
