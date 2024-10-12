@@ -24,7 +24,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("accounts.urls")),
+    # path("accounts/", include("django.contrib.auth.urls")),
     path('', views.index, name='index'),
     path('files/', views.files, name='files'),
     path('files/<int:file_id>/', views.file, name='file'),

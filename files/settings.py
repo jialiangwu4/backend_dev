@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
     'storages',
+    'accounts',
     'files',
     'django.contrib.admin',
     'django.contrib.auth', # django built-in authentication
