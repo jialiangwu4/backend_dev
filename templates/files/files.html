@@ -3,6 +3,9 @@
 {% block title %}Files Title{% endblock title %}
 
 {% block body %}
+{% if user.is_authenticated %}
+    Hi {{ user.username }}!
+{% endif %}
 {% if data %}
 <ul>
     {% for d in data%}

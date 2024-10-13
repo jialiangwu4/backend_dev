@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = '__all__'
-        write_only_fields = ('passworkd',)
+        write_only_fields = ('password',)
         read_only_fields = ('id',)
         
     def create(self, validated_data):

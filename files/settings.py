@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'storages',
     'accounts',
-    'files',
+    'my_files',
     'django.contrib.admin',
     'django.contrib.auth', # django built-in authentication
     'django.contrib.contenttypes',
@@ -75,7 +75,7 @@ ROOT_URLCONF = 'files.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

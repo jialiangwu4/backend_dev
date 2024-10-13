@@ -1,8 +1,8 @@
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
-from files.serializers import FileSerializer, UserSerializer
-from files.forms import UploadForm
-from files.models import File
+from .serializers import FileSerializer, UserSerializer
+from .forms import UploadForm
+from .models import File
 import os
 from urllib.parse import urlparse
 import requests
