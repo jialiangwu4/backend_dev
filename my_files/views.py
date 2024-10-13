@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from django.urls import reverse, reverse_lazy
 
 def index(request):
     return render(request, 'files/index.html')
@@ -64,13 +65,15 @@ def create(request):
     form = UploadForm()
     
     if request.method == 'POST':
-        form = UploadForm(request.POST, request.FILES)
+        form = UploadForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
+            # file = form.save(commit=False)
+            # file.user = request.user
             form.save()
             
             return redirect('files')
         
-    return render(request, 'upload.html', {'form': form})
+    return render(request, 'files/upload.html', {'form': form})
     
     
 def download_file(request, file_id):
