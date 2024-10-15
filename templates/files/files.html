@@ -5,16 +5,21 @@
 {% block body %}
 {% if user.is_authenticated %}
     Hi {{ user.username }}!
-{% endif %}
-{% if data %}
-<ul>
-    {% for d in data%}
-    <li><a href="{% url "file" d.id %}">{{ d.name }}</a></li>
-    {% endfor%}
-</ul>
+
+    {% if data %}
+        <ul>
+            {% for d in data%}
+            <li><a href="{% url "file" d.id %}">{{ d.name }}</a></li>
+            {% endfor%}
+        </ul>
+    {% else %}
+        <p>No data</p>
+    {% endif %}
+    <p><a href="{% url "upload" %}">Upload New File</a></p>
+    <p><a href="{% url 'password_change' %}">Password Change</a></p>
+    {% include "../registration/logout.html" %}
 {% else %}
-<p>No data</p>
-{% endif %}
-<p><a href="{% url "upload" %}">Upload New File</a></p>
-<p><a href="{% url "logout" %}">Click here to log out</a></p>
+    <p>You are not logged in.</p>
+    <a href="{% url 'login' %}">Log In</a>
+{% endif%}
 {% endblock body %}

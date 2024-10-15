@@ -11,15 +11,18 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'files/index.html')
 
+@login_required
 def files(request):
     # files = File.objects.all()
     files = request.user.file_set.all()
     return render(request, 'files/files.html', {'data': files})
 
+@login_required
 def file(request, file_id):
     try: 
         # file = File.objects.get(pk=file_id)
