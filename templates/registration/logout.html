@@ -1,7 +1,7 @@
 {% block body %}
-    <form action="{% url 'logout' %}" method="POST">
+    <nav><form action="{% url 'logout' %}" method="POST">
         {% csrf_token %}
         <button type="submit">Log out</button>
-    </form>
+    </form></nav> 
 {% endblock body %}
 

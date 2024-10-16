@@ -4,7 +4,8 @@
 
 {% block body %}
 {% if user.is_authenticated %}
-    Hi {{ user.username }}!
+{% include "../registration/logout.html" %}
+    <p>Hi {{ user.username }}!</p>
 
     {% if data %}
         <ul>
@@ -17,7 +18,7 @@
     {% endif %}
     <p><a href="{% url "upload" %}">Upload New File</a></p>
     <p><a href="{% url 'password_change' %}">Password Change</a></p>
-    {% include "../registration/logout.html" %}
+
 {% else %}
     <p>You are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>

@@ -12,6 +12,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate
 
 def index(request):
     return render(request, 'files/index.html')
@@ -19,8 +20,10 @@ def index(request):
 @login_required
 def files(request):
     # files = File.objects.all()
-    files = request.user.file_set.all()
-    return render(request, 'files/files.html', {'data': files})
+    user = request.user
+    if user.is_authenticated:
+        files = user.file_set.all()
+    return render(request, 'files/files.html', {'data': files, 'user': user})
 
 @login_required
 def file(request, file_id):

@@ -3,6 +3,7 @@
 {% block title %}File Detail{% endblock title %}
 
 {% block body %}
+{% include "../registration/logout.html" %}
     <p>File Name: {{ file.name }}</p>
     <p>Upload timestamp: {{ file.upload_timestamp }}</p>
     <p>Click here to view <a href={{ file.file.url }} target="_blank">file</a>.</p>
